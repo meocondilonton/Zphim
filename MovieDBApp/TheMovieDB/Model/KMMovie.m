@@ -41,6 +41,10 @@
     _movieVoteAverage = @"";
     _movieVoteCount = @"";
     _movieTitle = @"";
+    _movieUrlVideo = @"";
+    _mnUrlPage = @"";
+    _movieArrType = [[ NSMutableArray alloc]init];
+    _movieDescription = @"";
 }
 
 - (id)init{

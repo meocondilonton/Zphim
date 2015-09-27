@@ -8,7 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "MFSideMenu.h"
+#import <QuartzCore/QuartzCore.h>
+#import "ViewPagerController.h"
+#import "StoryBoardUtilities.h"
 
-@interface KMMainMenuViewController : UIViewController
+@interface KMMainMenuViewController : ViewPagerController
 
 @end

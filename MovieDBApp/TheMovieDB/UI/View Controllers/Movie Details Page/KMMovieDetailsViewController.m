@@ -8,7 +8,6 @@
 
 #import "KMMovieDetailsViewController.h"
 #import "StoryBoardUtilities.h"
-#import "KMMovieDetailsCell.h"
 #import "KMMovieDetailsDescriptionCell.h"
 #import "KMMovieDetailsSimilarMoviesCell.h"
 #import "KMSimilarMoviesCollectionViewCell.h"
@@ -20,8 +19,13 @@
 #import "KMSimilarMoviesSource.h"
 #import "KMSimilarMoviesViewController.h"
 #import "UIImageView+WebCache.h"
+#import "TFHpple.h"
+#import "MediaPlayer/MediaPlayer.h"
 
-@interface KMMovieDetailsViewController ()
+@interface KMMovieDetailsViewController (){
+      NSData *htmlData;
+      MPMoviePlayerController *moviePlayer;
+}
 
 @property (nonatomic, strong) NSMutableArray* similarMoviesDataSource;
 @property (nonatomic, strong) KMNetworkLoadingViewController* networkLoadingViewController;
@@ -121,17 +125,153 @@
     [source getSimilarMovies:self.movieDetails.movieId numberOfPages:@"1" completion:completionBlock];
 }
 
+-(void)loadWebData {
+//      NSLog(@" _subMenu.mnUrl" );
+//     NSLog(@" _subMenu.mnUrl %@", _subMenu.mnUrl );
+    _webUrl = [NSURL URLWithString:_subMenu.mnUrl];
+    htmlData = [NSData dataWithContentsOfURL:_webUrl];
+    
+    self.movieDetails = [self getMovieDetail];
+    
+}
+
+- (KMMovie*)getMovieDetail
+{
+    KMMovie * movie = [[KMMovie alloc]init];
+    
+    movie.movieTitle = _subMenu.mnTitle;
+    movie.movieOriginalPosterImageUrl = _subMenu.mnImgUrl;
+    movie.movieOriginalBackdropImageUrl = _subMenu.mnImgUrl;
+    movie.movieThumbnailPosterImageUrl = _subMenu.mnImgUrl;
+    movie.movieThumbnailBackdropImageUrl = _subMenu.mnImgUrl;
+    movie.mnUrlPage = _subMenu.mnUrl;
+ 
+    TFHpple *htmlParser = [TFHpple hppleWithHTMLData:htmlData];
+    
+    NSString *tutorialsXpathQueryString =  @"//div[@class='_insideBackground']";
+    
+    NSMutableArray *tutorialsNodes = [NSMutableArray arrayWithArray: [htmlParser searchWithXPathQuery:tutorialsXpathQueryString]];
+    
+    for (TFHppleElement *element in tutorialsNodes) {
+//        NSLog(@" element %@", element.content );
+//         NSLog(@" element %@",  element.attributes );
+       
+        for (TFHppleElement *child in element.children) {
+            
+//              NSLog(@" child %@",  child.attributes );
+//            NSLog(@" child %@", child.content );
+//             NSLog(@" child %@", child.tagName );
+             for (TFHppleElement *child1 in child.children) {
+                 
+//                 NSLog(@" child1 %@",  child1.content );
+//                  NSLog(@" child1 %@",  child1.raw );
+                 NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"[^\"]+\\.mp4" options:NSRegularExpressionCaseInsensitive error:nil];
+                 
+                 NSArray *arrayOfAllMatches = [regex matchesInString:child1.content options:0 range:NSMakeRange(0, [child1.content length])];
+                 
+                 
+                 for (NSTextCheckingResult *match in arrayOfAllMatches) {
+                     NSString* substringForMatch = [child1.content substringWithRange:match.range];
+                     
+                     if (substringForMatch != nil && ![ substringForMatch isEqualToString:@""]) {
+                         movie.movieUrlVideo = substringForMatch;
+//                         NSLog(@"movieDetails URL: %@",substringForMatch);
+                     }
+                  
+                     
+                 }
+                 
+              
+                 
+             }
+
+        }
+        
+       
+        
+    }
+    
+    
+    NSString *tutorialsXpathQueryString2 =  @"//div[@class='box-description']/ul/li";
+    
+    NSMutableArray *tutorialsNodes2 = [NSMutableArray arrayWithArray: [htmlParser searchWithXPathQuery:tutorialsXpathQueryString2]];
+    for (TFHppleElement *element in tutorialsNodes2) {
+        if ([element.attributes[@"class"] isEqualToString:@"tag"]) {
+             int i = 0;
+            for (TFHppleElement *child in element.children)
+            {
+               
+                for (TFHppleElement *child1 in child.children)
+                {
+                    if (i <= 1 || i ==  child.children.count - 1) {
+                         movie.movieGenresString =  [NSString stringWithFormat:@"%@%@",movie.movieGenresString,child1.content];
+                        
+                        
+                    }else{
+                        [movie.movieArrType addObject:child1.content];
+                        movie.movieGenresString =  [NSString stringWithFormat:@"%@ , %@",movie.movieGenresString,child1.content];
+                       
+                    }
+                    NSLog(@" movie.movieGenresString %@", movie.movieGenresString);
+                        
+                    i++;
+                  
+               
+                }
+            }
+            break;
+        }
+//         NSLog(@" element %@", element.attributes );
+    }
+    
+    NSString *tutorialsXpathQueryString3 =  @"//div[@class='box-description']/h3";
+    
+    NSMutableArray *tutorialsNodes3 = [NSMutableArray arrayWithArray: [htmlParser searchWithXPathQuery:tutorialsXpathQueryString3]];
+    for (TFHppleElement *element in tutorialsNodes3) {
+//        NSLog(@" child %@", element.content );
+        movie.movieDescription = element.content;
+    }
+    
+    NSString *tutorialsXpathQueryString4 =  @"//strong[@class='vote-count _votecount']";
+    
+    NSMutableArray *tutorialsNodes4 = [NSMutableArray arrayWithArray: [htmlParser searchWithXPathQuery:tutorialsXpathQueryString4]];
+    for (TFHppleElement *element in tutorialsNodes4) {
+//        NSLog(@" movieVoteCount %@", element.content );
+        movie.movieVoteCount = element.content;
+    }
+    
+    NSString *tutorialsXpathQueryString5 =  @"//span[@class='rating-score fw7 _score']";
+    
+    NSMutableArray *tutorialsNodes5 = [NSMutableArray arrayWithArray: [htmlParser searchWithXPathQuery:tutorialsXpathQueryString5]];
+    for (TFHppleElement *element in tutorialsNodes5) {
+//        NSLog(@" movieVoteAverage %@", element.content );
+        movie.movieVoteAverage = element.content;
+    }
+    
+    return movie;
+}
+
+
 - (void)requestMovieDetails
 {
-    KMMovieDetailsCompletionBlock completionBlock = ^(KMMovie* movieDetails, NSString* errorString)
-    {
-        if (movieDetails != nil)
-            [self processMovieDetailsData:movieDetails];
-        else
-            [self.networkLoadingViewController showErrorView];
-    };
-    KMMovieDetailsSource* source = [KMMovieDetailsSource movieDetailsSource];
-    [source getMovieDetails:self.movieDetails.movieId completion:completionBlock];
+//    KMMovieDetailsCompletionBlock completionBlock = ^(KMMovie* movieDetails, NSString* errorString)
+//    {
+//        if (movieDetails != nil)
+//            [self processMovieDetailsData:movieDetails];
+//        else
+//            [self.networkLoadingViewController showErrorView];
+//    };
+   
+//    KMMovieDetailsSource* source = [KMMovieDetailsSource movieDetailsSource];
+//    [source getMovieDetails:self.movieDetails.movieId completion:completionBlock];
+    
+    
+    
+ 
+    
+    [self loadWebData];
+      [self hideLoadingView];
+//     [self processMovieDetailsData:movie];
 }
 
 #pragma mark -
@@ -156,6 +296,7 @@
 {
     self.movieDetails = data;
     [self requestSimilarMovies];
+    [self hideLoadingView];
 }
 
 #pragma mark -
@@ -202,8 +343,11 @@
             [detailsCell.posterImageView setImageURL:[NSURL URLWithString:self.movieDetails.movieThumbnailBackdropImageUrl]];
             detailsCell.movieTitleLabel.text = self.movieDetails.movieTitle;
             detailsCell.genresLabel.text = self.movieDetails.movieGenresString;
-            
+            detailsCell.cellDelegate = self;
             cell = detailsCell;
+            NSLog(@"detailsCell %@",self.movieDetails.movieTitle);
+             NSLog(@"detailsCell %@",self.movieDetails.movieGenresString);
+             NSLog(@"detailsCell %@",self.movieDetails.movieThumbnailBackdropImageUrl);
         }
             break;
         case 1:
@@ -434,5 +578,28 @@
     [self requestSimilarMovies];
     [self requestMovieDetails];
 }
+
+#pragma mark -
+#pragma mark KMMovieDetailsCellProtocal
+
+- (void) watchVideo {
+//    NSLog(@"self.movieDetails.movieUrlVideo %@",self.movieDetails.movieUrlVideo);
+  
+    AVPlayer *player = [AVPlayer playerWithURL:[NSURL URLWithString:self.movieDetails.movieUrlVideo]];
+    AVPlayerViewController *playerController = [[AVPlayerViewController alloc]init];
+    playerController.player = player;
+    [self presentViewController:playerController animated:YES completion:nil];
+//    [self addChildViewController:playerController];
+//    [self.view addSubview:playerController.view];
+//    playerController.view.frame = self.view.frame;
+    [player play];
+}
+
+- (void) bookMark {
+    
+}
+
+
+
 
 @end

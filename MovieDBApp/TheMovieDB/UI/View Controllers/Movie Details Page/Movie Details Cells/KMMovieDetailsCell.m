@@ -13,6 +13,14 @@
 #pragma mark -
 #pragma mark Init Methods
 
+- (IBAction)watchVideo:(id)sender {
+    [_cellDelegate watchVideo];
+}
+
+- (IBAction)bookMarkVideo:(id)sender {
+     [_cellDelegate bookMark];
+}
+
 + (KMMovieDetailsCell*) movieDetailsCell
 {
     KMMovieDetailsCell * cell = [[[NSBundle mainBundle] loadNibNamed:@"KMMovieDetailsCell" owner:self options:nil] objectAtIndex:0];

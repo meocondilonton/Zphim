@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4197AF951BB675AD007F9903 /* KMMenuCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4197AF941BB675AD007F9903 /* KMMenuCollectionViewCell.m */; };
+		4197AF981BB7901D007F9903 /* KMMenuHeaderCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4197AF971BB7901D007F9903 /* KMMenuHeaderCollectionViewCell.m */; };
+		4197AF9C1BB7D1D0007F9903 /* KMBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4197AF9B1BB7D1D0007F9903 /* KMBaseViewController.m */; };
+		4197AF9E1BB81C42007F9903 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4197AF9D1BB81C42007F9903 /* MediaPlayer.framework */; };
+		4197AFA01BB81F22007F9903 /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4197AF9F1BB81F22007F9903 /* AVKit.framework */; };
+		41C0702C1BB5B0B000EBE2E1 /* libxml2.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 41C0702B1BB5B0B000EBE2E1 /* libxml2.2.dylib */; };
+		41C070301BB62F0200EBE2E1 /* KMMainContentTabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 41C0702F1BB62F0200EBE2E1 /* KMMainContentTabViewController.m */; };
 		7B0CD94A18A23FFC007A66A6 /* KMSimilarMoviesStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B0CD94918A23FFC007A66A6 /* KMSimilarMoviesStoryboard.storyboard */; };
 		7B0CD94D18A24023007A66A6 /* KMSimilarMoviesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B0CD94C18A24023007A66A6 /* KMSimilarMoviesViewController.m */; };
 		7B0CD95018A2413E007A66A6 /* KMMoviePosterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B0CD94F18A2413E007A66A6 /* KMMoviePosterCell.m */; };
@@ -95,6 +102,17 @@
 
 /* Begin PBXFileReference section */
 		24318ADB7A19B955C7451243 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		4197AF931BB675AD007F9903 /* KMMenuCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KMMenuCollectionViewCell.h; path = LeftMenu/KMMenuCollectionViewCell.h; sourceTree = "<group>"; };
+		4197AF941BB675AD007F9903 /* KMMenuCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KMMenuCollectionViewCell.m; path = LeftMenu/KMMenuCollectionViewCell.m; sourceTree = "<group>"; };
+		4197AF961BB7901D007F9903 /* KMMenuHeaderCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KMMenuHeaderCollectionViewCell.h; path = LeftMenu/KMMenuHeaderCollectionViewCell.h; sourceTree = "<group>"; };
+		4197AF971BB7901D007F9903 /* KMMenuHeaderCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KMMenuHeaderCollectionViewCell.m; path = LeftMenu/KMMenuHeaderCollectionViewCell.m; sourceTree = "<group>"; };
+		4197AF9A1BB7D1D0007F9903 /* KMBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KMBaseViewController.h; sourceTree = "<group>"; };
+		4197AF9B1BB7D1D0007F9903 /* KMBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KMBaseViewController.m; sourceTree = "<group>"; };
+		4197AF9D1BB81C42007F9903 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		4197AF9F1BB81F22007F9903 /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = System/Library/Frameworks/AVKit.framework; sourceTree = SDKROOT; };
+		41C0702B1BB5B0B000EBE2E1 /* libxml2.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.2.dylib; path = usr/lib/libxml2.2.dylib; sourceTree = SDKROOT; };
+		41C0702E1BB62F0200EBE2E1 /* KMMainContentTabViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KMMainContentTabViewController.h; path = LeftMenu/KMMainContentTabViewController.h; sourceTree = "<group>"; };
+		41C0702F1BB62F0200EBE2E1 /* KMMainContentTabViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KMMainContentTabViewController.m; path = LeftMenu/KMMainContentTabViewController.m; sourceTree = "<group>"; };
 		7B0CD94918A23FFC007A66A6 /* KMSimilarMoviesStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = KMSimilarMoviesStoryboard.storyboard; sourceTree = "<group>"; };
 		7B0CD94B18A24023007A66A6 /* KMSimilarMoviesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KMSimilarMoviesViewController.h; sourceTree = "<group>"; };
 		7B0CD94C18A24023007A66A6 /* KMSimilarMoviesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KMSimilarMoviesViewController.m; sourceTree = "<group>"; };
@@ -225,6 +243,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4197AFA01BB81F22007F9903 /* AVKit.framework in Frameworks */,
+				4197AF9E1BB81C42007F9903 /* MediaPlayer.framework in Frameworks */,
+				41C0702C1BB5B0B000EBE2E1 /* libxml2.2.dylib in Frameworks */,
 				FDD77FC41BB03E19009A1D46 /* libxml2.2.tbd in Frameworks */,
 				7B2F318C18A011A0008CD0DA /* CoreGraphics.framework in Frameworks */,
 				7B2F318E18A011A0008CD0DA /* UIKit.framework in Frameworks */,
@@ -246,6 +267,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4197AF8D1BB66CE6007F9903 /* CustomCell */ = {
+			isa = PBXGroup;
+			children = (
+				4197AF931BB675AD007F9903 /* KMMenuCollectionViewCell.h */,
+				4197AF941BB675AD007F9903 /* KMMenuCollectionViewCell.m */,
+				4197AF961BB7901D007F9903 /* KMMenuHeaderCollectionViewCell.h */,
+				4197AF971BB7901D007F9903 /* KMMenuHeaderCollectionViewCell.m */,
+			);
+			name = CustomCell;
+			sourceTree = "<group>";
+		};
+		4197AF991BB7D1AC007F9903 /* BaseViewController */ = {
+			isa = PBXGroup;
+			children = (
+				4197AF9A1BB7D1D0007F9903 /* KMBaseViewController.h */,
+				4197AF9B1BB7D1D0007F9903 /* KMBaseViewController.m */,
+			);
+			name = BaseViewController;
+			sourceTree = "<group>";
+		};
 		7B0CD94818A23FF2007A66A6 /* Movies Collection View */ = {
 			isa = PBXGroup;
 			children = (
@@ -281,6 +322,9 @@
 		7B2F318818A011A0008CD0DA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4197AF9F1BB81F22007F9903 /* AVKit.framework */,
+				4197AF9D1BB81C42007F9903 /* MediaPlayer.framework */,
+				41C0702B1BB5B0B000EBE2E1 /* libxml2.2.dylib */,
 				FDD77FC31BB03E19009A1D46 /* libxml2.2.tbd */,
 				7B2F318918A011A0008CD0DA /* Foundation.framework */,
 				7B2F318B18A011A0008CD0DA /* CoreGraphics.framework */,
@@ -393,6 +437,7 @@
 		7B2F31BF18A011FE008CD0DA /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				4197AF991BB7D1AC007F9903 /* BaseViewController */,
 				FDD77FBC1BB03888009A1D46 /* SlideMenu */,
 				7B0CD94818A23FF2007A66A6 /* Movies Collection View */,
 				7B329E7918A10F27004D77BF /* Movie Details Page */,
@@ -626,10 +671,13 @@
 		FDD77FBC1BB03888009A1D46 /* SlideMenu */ = {
 			isa = PBXGroup;
 			children = (
+				4197AF8D1BB66CE6007F9903 /* CustomCell */,
 				FDD77FBD1BB038B8009A1D46 /* KMLeftMenuViewController.h */,
 				FDD77FBE1BB038B8009A1D46 /* KMLeftMenuViewController.m */,
 				FDD77FC81BB04002009A1D46 /* KMMainMenuViewController.h */,
 				FDD77FC91BB04002009A1D46 /* KMMainMenuViewController.m */,
+				41C0702E1BB62F0200EBE2E1 /* KMMainContentTabViewController.h */,
+				41C0702F1BB62F0200EBE2E1 /* KMMainContentTabViewController.m */,
 			);
 			name = SlideMenu;
 			sourceTree = "<group>";
@@ -792,9 +840,11 @@
 				7B2F31D218A01717008CD0DA /* StoryBoardUtilities.m in Sources */,
 				7B329E7C18A10F37004D77BF /* KMMovieDetailsViewController.m in Sources */,
 				7B2F31EF18A018A3008CD0DA /* NSBundle+Loader.m in Sources */,
+				4197AF951BB675AD007F9903 /* KMMenuCollectionViewCell.m in Sources */,
 				FDD77FC71BB03F61009A1D46 /* KMSubMenu.m in Sources */,
 				7B329E8618A11E72004D77BF /* KMMovieDetailsSource.m in Sources */,
 				7B329E7418A10EDF004D77BF /* EGOCache.m in Sources */,
+				4197AF9C1BB7D1D0007F9903 /* KMBaseViewController.m in Sources */,
 				7B329E7818A10EDF004D77BF /* EGOImageView.m in Sources */,
 				FDD77FB71BB031B7009A1D46 /* TFHpple.m in Sources */,
 				7B329E9E18A12418004D77BF /* KMIndexedCollectionView.m in Sources */,
@@ -812,6 +862,7 @@
 				7B2F31D518A0176D008CD0DA /* KMMovie.m in Sources */,
 				FDD77FCA1BB04002009A1D46 /* KMMainMenuViewController.m in Sources */,
 				7B2F31D818A01794008CD0DA /* KMBaseSource.m in Sources */,
+				4197AF981BB7901D007F9903 /* KMMenuHeaderCollectionViewCell.m in Sources */,
 				7B329E7718A10EDF004D77BF /* EGOImageLoader.m in Sources */,
 				7B66F5AC18A1729B0070DEB4 /* KMMovieDetailsPopularityCell.m in Sources */,
 				7B329E9A18A123B5004D77BF /* KMMovieDetailsCell.m in Sources */,
@@ -819,6 +870,7 @@
 				7B22AD9D18A18BDE00022013 /* KMMovieDetailsCommentsCell.m in Sources */,
 				7B2F319618A011A0008CD0DA /* main.m in Sources */,
 				7B329E9618A123B5004D77BF /* KMSimilarMoviesCollectionViewCell.m in Sources */,
+				41C070301BB62F0200EBE2E1 /* KMMainContentTabViewController.m in Sources */,
 				FDD77FB81BB031B7009A1D46 /* TFHppleElement.m in Sources */,
 				7B2F31D118A01717008CD0DA /* KMGillSansLabel.m in Sources */,
 				7B329EA618A127E4004D77BF /* KMMovieDetailsDescriptionCell.m in Sources */,

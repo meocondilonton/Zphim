@@ -10,15 +10,29 @@
 #import "EGOImageView.h"
 #import "KMGillSansLabel.h"
 
+@protocol KMMovieDetailsCellProtocal <NSObject>
+
+- (void) watchVideo;
+- (void) bookMark;
+
+@end
+
 @interface KMMovieDetailsCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet EGOImageView *posterImageView;
 @property (weak, nonatomic) IBOutlet KMGillSansLightLabel *movieTitleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *genresLabel;
 
+@property (weak, nonatomic) id<KMMovieDetailsCellProtocal> cellDelegate;
+
 
 @property (weak, nonatomic) IBOutlet UIButton *watchTrailerButton;
 @property (weak, nonatomic) IBOutlet UIButton *bookmarkButton;
+
+- (IBAction)watchVideo:(id)sender;
+- (IBAction)bookMarkVideo:(id)sender;
+
+
 
 + (KMMovieDetailsCell*) movieDetailsCell;
 

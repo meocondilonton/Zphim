@@ -11,6 +11,8 @@
 @interface KMSubMenu : NSObject
 
 @property (nonatomic, copy) NSString* mnTitle;
+@property (nonatomic, copy) NSString* mnDescription;
 @property (nonatomic, copy) NSString* mnUrl;
+@property (nonatomic, copy) NSString* mnImgUrl;
 
 @end

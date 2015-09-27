@@ -22,6 +22,10 @@
 @property (nonatomic, copy) NSString* movieVoteCount;
 @property (nonatomic, copy) NSString* movieVoteAverage;
 @property (nonatomic, copy) NSString* moviePopularity;
+@property (nonatomic, copy) NSString* mnUrlPage;
+@property (nonatomic, strong) NSString* movieUrlVideo;
+@property (nonatomic, strong) NSString* movieDescription;
+@property (nonatomic, strong) NSMutableArray* movieArrType;
 
 - (id)initWithDictionary:(NSDictionary*)dictionary;
 

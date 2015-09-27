@@ -11,8 +11,14 @@
 #import "KMMovie.h"
 #import "KMGillSansLabel.h"
 #import "KMNetworkLoadingViewController.h"
+#import "KMSubMenu.h"
+#import "KMBaseViewController.h"
+#import "KMMovieDetailsCell.h"
+#import <QuartzCore/QuartzCore.h>
+#import <AVKit/AVKit.h>
+#import <AVFoundation/AVFoundation.h>
 
-@interface KMMovieDetailsViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate, KMNetworkLoadingViewDelegate, KMDetailsPageDelegate>
+@interface KMMovieDetailsViewController : KMBaseViewController <UITableViewDataSource, UITableViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate, KMNetworkLoadingViewDelegate, KMDetailsPageDelegate,KMMovieDetailsCellProtocal>
 
 @property (weak, nonatomic) IBOutlet UIView *navigationBarView;
 @property (weak, nonatomic) IBOutlet UIView *networkLoadingContainerView;
@@ -20,6 +26,9 @@
 @property (weak, nonatomic) IBOutlet KMGillSansLightLabel *navBarTitleLabel;
 
 @property (strong, nonatomic) KMMovie* movieDetails;
+@property (strong, nonatomic) KMSubMenu* subMenu;
+
+@property (strong, nonatomic) NSURL *webUrl;
 
 - (IBAction)popViewController:(id)sender;
 

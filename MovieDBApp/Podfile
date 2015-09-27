@@ -6,4 +6,6 @@ pod "AFNetworking"
 
 pod 'MFSideMenu'
 
+pod 'ICViewPager'
 
+pod 'SVProgressHUD'
