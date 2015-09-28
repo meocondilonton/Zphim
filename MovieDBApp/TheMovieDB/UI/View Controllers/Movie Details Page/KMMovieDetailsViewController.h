@@ -28,7 +28,7 @@
 @property (strong, nonatomic) KMMovie* movieDetails;
 @property (strong, nonatomic) KMSubMenu* subMenu;
 
-@property (strong, nonatomic) NSURL *webUrl;
+
 
 - (IBAction)popViewController:(id)sender;
 

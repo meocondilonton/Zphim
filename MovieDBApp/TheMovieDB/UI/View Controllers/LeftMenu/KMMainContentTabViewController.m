@@ -206,9 +206,9 @@
 {
      KMSubMenu *menu = [self.moviesDataSource objectAtIndex:indexPath.item];
    
-    NSLog(@"item %ld mnImgUrl :%@",(long)indexPath.item ,menu.mnImgUrl);
-       NSLog(@"item %ld mnTitle :%@",(long)indexPath.item ,menu.mnTitle);
-       NSLog(@"item %ld mnUrl :%@",(long)indexPath.item ,menu.mnUrl);
+//    NSLog(@"item %ld mnImgUrl :%@",(long)indexPath.item ,menu.mnImgUrl);
+//       NSLog(@"item %ld mnTitle :%@",(long)indexPath.item ,menu.mnTitle);
+//       NSLog(@"item %ld mnUrl :%@",(long)indexPath.item ,menu.mnUrl);
     
     KMMovieDetailsViewController* viewController = (KMMovieDetailsViewController*)[StoryBoardUtilities viewControllerForStoryboardName:@"KMMovieDetailsStoryboard" class:[KMMovieDetailsViewController class]];
     [self.navigationController pushViewController:viewController animated:YES];
