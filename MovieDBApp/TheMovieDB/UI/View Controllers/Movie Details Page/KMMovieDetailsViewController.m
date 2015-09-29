@@ -246,7 +246,6 @@
     NSMutableArray *tutorialsNodes5 = [NSMutableArray arrayWithArray: [htmlParser searchWithXPathQuery:tutorialsXpathQueryString5]];
     
     for (TFHppleElement *element in tutorialsNodes5) {
-//        NSLog(@" movieVoteAverage %@", element.content );
         movie.movieVoteAverage = element.content;
     }
     
@@ -259,7 +258,6 @@
     NSMutableArray *tutorialsNodes6 = [NSMutableArray arrayWithArray: [htmlParser searchWithXPathQuery:tutorialsXpathQueryString6]];
     
     for (TFHppleElement *element in tutorialsNodes6) {
-//        NSLog(@" movieVoteAverage %@", element.content );@"[^\"]+\\.html\""
         NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\[\\{(.*?)\\}\\]" options:NSRegularExpressionCaseInsensitive error:nil];
         
         NSArray *arrayOfAllMatches = [regex matchesInString:element.content options:0 range:NSMakeRange(0, [element.content length])];
@@ -267,7 +265,7 @@
         
         for (NSTextCheckingResult *match in arrayOfAllMatches) {
             NSString* substringForMatch = [element.content substringWithRange:match.range];
-              NSLog(@"substringForMatch: %@",substringForMatch);
+//              NSLog(@"substringForMatch: %@",substringForMatch);
             NSMutableArray *array = [NSJSONSerialization JSONObjectWithData:[substringForMatch dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingMutableContainers error:nil];
           
             
@@ -282,20 +280,30 @@
                     menu.mnUrl = [NSString stringWithFormat:@"%@%@",BASE_URL,media[@"linkDetail"]];
                     menu.mnTitle = media[@"nameStripViet"];
                     menu.mnImgUrl = media[@"thumbnail"];
-                     NSLog(@"linkDetailzz: %@",media[@"linkDetail"]);
+//                     NSLog(@"linkDetailzz: %@",media[@"linkDetail"]);
                     [self.similarMoviesDataSource addObject:menu];
                 }
                 
             }
-//            if (substringForMatch != nil && ![ substringForMatch isEqualToString:@""]) {
-//                substringForMatch = [substringForMatch stringByReplacingOccurrencesOfString:@"\\"
-//                                                     withString:@""];
-//                NSLog(@"substringForMatch: %@",substringForMatch);
-//            }
+
         }
     }
     
     [self processSimilarMoviesData:self.similarMoviesDataSource];
+    
+    //load comment
+    NSString *tutorialsXpathQueryString7 =  @"//div[@class='comment-list']/div[@class='comment-item']";
+    
+    NSMutableArray *tutorialsNodes7 = [NSMutableArray arrayWithArray: [htmlParser searchWithXPathQuery:tutorialsXpathQueryString7]];
+    
+    for (TFHppleElement *element in tutorialsNodes7) {
+        
+        NSLog(@"element tag : %@",element.tagName);
+          NSLog(@"element  : %@",element.content);
+//        if (<#condition#>) {
+//            <#statements#>
+//        }
+    }
 }
 
 
@@ -367,7 +375,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 7;
+    return 8;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -398,19 +406,19 @@
 //             NSLog(@"detailsCell %@",self.movieDetails.movieThumbnailBackdropImageUrl);
         }
             break;
-//        case 1:
-//        {
-//            KMMovieDetailsDescriptionCell *descriptionCell = [tableView dequeueReusableCellWithIdentifier:@"KMMovieDetailsDescriptionCell"];
-//            
-//            if(descriptionCell == nil)
-//                descriptionCell = [KMMovieDetailsDescriptionCell movieDetailsDescriptionCell];
-//            
-//            descriptionCell.movieDescriptionLabel.text = self.movieDetails.movieSynopsis;
-//            
-//            cell = descriptionCell;
-//        }
-//            break;
-        case 2 -1:
+        case 1:
+        {
+            KMMovieDetailsDescriptionCell *descriptionCell = [tableView dequeueReusableCellWithIdentifier:@"KMMovieDetailsDescriptionCell"];
+            
+            if(descriptionCell == nil)
+                descriptionCell = [KMMovieDetailsDescriptionCell movieDetailsDescriptionCell];
+            
+            descriptionCell.movieDescriptionLabel.text = self.movieDetails.movieSynopsis;
+            
+            cell = descriptionCell;
+        }
+            break;
+        case 2 :
         {
             KMMovieDetailsSimilarMoviesCell *contributionCell = [tableView dequeueReusableCellWithIdentifier:@"KMMovieDetailsSimilarMoviesCell"];
             
@@ -422,7 +430,7 @@
             cell = contributionCell;
         }
             break;
-        case 3 -1:
+        case 3 :
         {
             KMMovieDetailsPopularityCell *popularityCell = [tableView dequeueReusableCellWithIdentifier:@"KMMovieDetailsPopularityCell"];
             
@@ -436,7 +444,7 @@
             cell = popularityCell;
         }
             break;
-        case 4 -1:
+        case 4 :
         {
             KMMovieDetailsCommentsCell *commentsCell = [tableView dequeueReusableCellWithIdentifier:@"KMMovieDetailsCommentsCell"];
             
@@ -450,7 +458,7 @@
             cell = commentsCell;
         }
             break;
-        case 5 -1:
+        case 5 :
         {
             KMMovieDetailsCommentsCell *commentsCell = [tableView dequeueReusableCellWithIdentifier:@"KMMovieDetailsCommentsCell"];
             
@@ -464,7 +472,7 @@
             cell = commentsCell;
         }
             break;
-        case 6 -1 :
+        case 6  :
         {
             KMMovieDetailsViewAllCommentsCell *viewAllCommentsCell = [tableView dequeueReusableCellWithIdentifier:@"KMMovieDetailsViewAllCommentsCell"];
             
@@ -474,7 +482,7 @@
             cell = viewAllCommentsCell;
         }
             break;
-        case 7 -1:
+        case 7 :
         {
             KMComposeCommentCell *composeCommentCell = [tableView dequeueReusableCellWithIdentifier:@"KMComposeCommentCell"];
             

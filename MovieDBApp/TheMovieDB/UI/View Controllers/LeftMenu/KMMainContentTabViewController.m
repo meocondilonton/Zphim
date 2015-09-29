@@ -57,6 +57,7 @@
 
 -(void)loadData {
     _webUrl = [NSURL URLWithString:@"http://tv.zing.vn/the-loai/Phim/IWZ9Z0DW.html"];
+    
     htmlData = [NSData dataWithContentsOfURL:_webUrl];
     
      self.moviesDataSource = [self getListMenu];
