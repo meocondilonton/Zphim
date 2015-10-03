@@ -56,14 +56,77 @@
 #pragma mark data
 
 -(void)loadData {
-    _webUrl = [NSURL URLWithString:@"http://tv.zing.vn/the-loai/Phim/IWZ9Z0DW.html"];
+//    _webUrl = [NSURL URLWithString:@"http://tv.zing.vn/the-loai/Phim/IWZ9Z0DW.html"];
+//    htmlData = [NSData dataWithContentsOfURL:_webUrl];
+//    
+//     self.moviesDataSource = [self getListMenuFavorite];
+    
+    _webUrl = [NSURL URLWithString:@"http://tv.zing.vn/the-loai/Hanh-Dong-Phieu-Luu/IWZ9Z0FF.html"];
     htmlData = [NSData dataWithContentsOfURL:_webUrl];
     
-     self.moviesDataSource = [self getListMenu];
+    self.moviesDataSource = [self getListMenu];
     
 }
 
 - (NSMutableArray*)getListMenu
+{
+    NSMutableArray *arr = [[NSMutableArray alloc]init];
+    // 2
+    TFHpple *htmlParser = [TFHpple hppleWithHTMLData:htmlData];
+    
+    // 3
+    NSString *tutorialsXpathQueryString =  @"//div[@class='subtray block-item program-item']/div[@class='item']";
+    
+    
+    NSMutableArray *tutorialsNodes = [NSMutableArray arrayWithArray: [htmlParser searchWithXPathQuery:tutorialsXpathQueryString]];
+    
+    // 4
+    
+    for (TFHppleElement *element in tutorialsNodes) {
+        
+        KMSubMenu *menu = [[KMSubMenu alloc]init];
+        for (TFHppleElement *child in element.children) {
+            
+            if ([[child tagName] isEqualToString:@"a"] ) {
+                menu.mnUrl = child.attributes[@"href"];
+                 NSLog(@"menu mnUrl : %@", menu.mnUrl);
+                for (TFHppleElement *child1 in child.children) {
+                    if (child1.attributes[@"src"] != nil) {
+                        menu.mnImgUrl = child1.attributes[@"src"];
+//                        NSLog(@"menu Img : %@", menu.mnImgUrl);
+                    }
+                    
+                }
+                
+            }
+            
+            if ([[child tagName] isEqualToString:@"div"] ) {
+                for (TFHppleElement *child1 in child.children) {
+                    //                     NSLog(@"child1 : %@", child1.content);
+                    if ([child1.tagName isEqualToString:@"h4"]) {
+                        menu.mnTitle = child1.content;
+                    }else if([child1.tagName isEqualToString:@"h5"]){
+                        
+                        menu.mnDescription = child1.content;
+                    }
+                }
+                
+                
+            }
+            
+        }
+        NSLog(@"menu.mnDescription : %@  menu.mnImgUrl : %@ menu.mnTitle : %@ , menu.mnUrl : %@",menu.mnDescription ,menu.mnImgUrl , menu.mnTitle, menu.mnUrl  );
+        if (menu.mnImgUrl != nil) {
+            [arr addObject:menu];
+        }
+        
+        
+    }
+    
+    return arr;
+}
+
+- (NSMutableArray*)getListMenuFavorite
 {
     NSMutableArray *arr = [[NSMutableArray alloc]init];
     // 2
