@@ -79,6 +79,7 @@
 		7B66F5AE18A172AB0070DEB4 /* KMMovieDetailsPopularityCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B66F5AD18A172AB0070DEB4 /* KMMovieDetailsPopularityCell.xib */; };
 		7BA9592318A0263B0004A8A9 /* KMDiscoverSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BA9592118A0263B0004A8A9 /* KMDiscoverSource.m */; };
 		7BA9592418A0263B0004A8A9 /* KMDiscoverSourceJsonPattern.json in Resources */ = {isa = PBXBuildFile; fileRef = 7BA9592218A0263B0004A8A9 /* KMDiscoverSourceJsonPattern.json */; };
+		8785B0E11BBA918A006BCB7B /* KMComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 8785B0E01BBA918A006BCB7B /* KMComment.m */; };
 		ABE7289D1FF74AD688F0B347 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D671AB54250C4F98B999C342 /* libPods.a */; };
 		FDD77FB71BB031B7009A1D46 /* TFHpple.m in Sources */ = {isa = PBXBuildFile; fileRef = FDD77FB21BB031B7009A1D46 /* TFHpple.m */; };
 		FDD77FB81BB031B7009A1D46 /* TFHppleElement.m in Sources */ = {isa = PBXBuildFile; fileRef = FDD77FB41BB031B7009A1D46 /* TFHppleElement.m */; };
@@ -220,6 +221,8 @@
 		7BA9592018A0263B0004A8A9 /* KMDiscoverSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KMDiscoverSource.h; sourceTree = "<group>"; };
 		7BA9592118A0263B0004A8A9 /* KMDiscoverSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KMDiscoverSource.m; sourceTree = "<group>"; };
 		7BA9592218A0263B0004A8A9 /* KMDiscoverSourceJsonPattern.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = KMDiscoverSourceJsonPattern.json; sourceTree = "<group>"; };
+		8785B0DF1BBA918A006BCB7B /* KMComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KMComment.h; sourceTree = "<group>"; };
+		8785B0E01BBA918A006BCB7B /* KMComment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KMComment.m; sourceTree = "<group>"; };
 		D671AB54250C4F98B999C342 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FBF2931B78474548FFC95ED3 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		FDD77FB11BB031B7009A1D46 /* TFHpple.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TFHpple.h; sourceTree = "<group>"; };
@@ -396,6 +399,8 @@
 				7B2F31D418A0176D008CD0DA /* KMMovie.m */,
 				FDD77FC51BB03F61009A1D46 /* KMSubMenu.h */,
 				FDD77FC61BB03F61009A1D46 /* KMSubMenu.m */,
+				8785B0DF1BBA918A006BCB7B /* KMComment.h */,
+				8785B0E01BBA918A006BCB7B /* KMComment.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -851,6 +856,7 @@
 				7B22AD9F18A18BDE00022013 /* KMMovieDetailsViewAllCommentsCell.m in Sources */,
 				7B2F31C118A011FE008CD0DA /* KMAppDelegate.m in Sources */,
 				7B329E7518A10EDF004D77BF /* EGOImageButton.m in Sources */,
+				8785B0E11BBA918A006BCB7B /* KMComment.m in Sources */,
 				7B329EA218A1276B004D77BF /* KIImagePager.m in Sources */,
 				7B2F31EC18A018A3008CD0DA /* KM_NSDictionary+SafeValues.m in Sources */,
 				7B329E5B18A10B28004D77BF /* KMSimilarMoviesSource.m in Sources */,

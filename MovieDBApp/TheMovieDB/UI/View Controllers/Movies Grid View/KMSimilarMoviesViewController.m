@@ -108,7 +108,7 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath;
 {
     KMMoviePosterCell* cell = (KMMoviePosterCell*)[collectionView dequeueReusableCellWithReuseIdentifier:@"KMMoviePosterCell" forIndexPath:indexPath];
-    [cell.moviePosterImageView sd_setImageWithURL:[NSURL URLWithString:[[self.moviesDataSource objectAtIndex:indexPath.row] movieOriginalPosterImageUrl]]];
+    [cell.moviePosterImageView sd_setImageWithURL:[NSURL URLWithString:[[self.moviesDataSource objectAtIndex:indexPath.row] mnImgUrl]]];
     return cell;
 }
 
@@ -119,7 +119,7 @@
 {
     KMMovieDetailsViewController* viewController = (KMMovieDetailsViewController*)[StoryBoardUtilities viewControllerForStoryboardName:@"KMMovieDetailsStoryboard" class:[KMMovieDetailsViewController class]];
     [self.navigationController pushViewController:viewController animated:YES];
-    viewController.movieDetails = [self.moviesDataSource objectAtIndex:indexPath.row];
+    viewController.subMenu = [self.moviesDataSource objectAtIndex:indexPath.row];
 }
 
 @end

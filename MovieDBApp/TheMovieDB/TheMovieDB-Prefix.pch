@@ -11,6 +11,7 @@
 #endif
 
 
+#define BASE_URL            @"http://tv.zing.vn/"
 
 #ifdef __OBJC__
     #import <UIKit/UIKit.h>

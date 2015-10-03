@@ -56,6 +56,7 @@
 
 -(void)loadData {
     NSURL *tutorialsUrl = [NSURL URLWithString:@"http://tv.zing.vn/the-loai/Phim/IWZ9Z0DW.html"];
+
     tutorialsHtmlData = [NSData dataWithContentsOfURL:tutorialsUrl];
 
 }
