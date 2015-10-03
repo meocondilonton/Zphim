@@ -13,7 +13,7 @@
 
 @interface KMMainMenuViewController () <ViewPagerDataSource, ViewPagerDelegate>{
       NSData *tutorialsHtmlData;
-      NSUInteger numberOfTabs;
+      NSArray *arrMenu;
 }
 
 
@@ -26,8 +26,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self setupMenuBarButtonItems];
-//    [self loadData];
-    [self getListMenu];
+    [self loadData];
     
     self.dataSource = self;
     self.delegate = self;
@@ -56,9 +55,16 @@
 
 -(void)loadData {
     NSURL *tutorialsUrl = [NSURL URLWithString:@"http://tv.zing.vn/the-loai/Phim/IWZ9Z0DW.html"];
-
     tutorialsHtmlData = [NSData dataWithContentsOfURL:tutorialsUrl];
-
+    arrMenu = [self getListMenu];
+  
+//    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+//      
+//        
+//                dispatch_async(dispatch_get_main_queue(), ^{
+//               
+//        });
+//    });
 }
 
 - (NSMutableArray*)getListMenu
@@ -68,7 +74,9 @@
     TFHpple *tutorialsParser = [TFHpple hppleWithHTMLData:tutorialsHtmlData];
     
     // 3
-    NSString *tutorialsXpathQueryString = @"//div[@class='sub-nav phim-truyen-hinh']";
+//    NSString *tutorialsXpathQueryString = @"//div[@class='sub-nav phim-truyen-hinh']";
+    NSString *tutorialsXpathQueryString = self.keyPath;
+//    @"//div[@class='sub-nav hoat-hinh']";
     
     NSMutableArray *tutorialsNodes = [NSMutableArray arrayWithArray: [tutorialsParser searchWithXPathQuery:tutorialsXpathQueryString]];
     
@@ -90,7 +98,7 @@
                              NSLog(@"url : %@",[child3 objectForKey:@"href"]);
                             KMSubMenu *menu = [[KMSubMenu alloc]init];
                             menu.mnTitle = [child3 objectForKey:@"title"];
-                            menu.mnUrl = [child3 objectForKey:@"href"];
+                            menu.mnUrl = [NSString stringWithFormat:@"%@%@",@"http://tv.zing.vn",[child3 objectForKey:@"href"]];
                              [arr addObject:menu];
                             }
                        }
@@ -105,6 +113,7 @@
        
         
     }
+    
     
     return arr;
 }
@@ -164,9 +173,6 @@
 #pragma mark - Setters
 - (void)setNumberOfTabs:(NSUInteger)numberOfTab {
     
-    // Set numberOfTabs
-    numberOfTabs = numberOfTab;
-    
     // Reload data
     [self reloadData];
     
@@ -177,7 +183,7 @@
     [self selectTabAtIndex:1];
 }
 - (void)loadContent {
-    self.numberOfTabs = 1;
+    
      self.tabLocation =  [NSNumber numberWithFloat:1.0];
 }
 
@@ -190,14 +196,14 @@
 
 #pragma mark - ViewPagerDataSource
 - (NSUInteger)numberOfTabsForViewPager:(ViewPagerController *)viewPager {
-    return  numberOfTabs;
+    return  [arrMenu count];
 }
 - (UIView *)viewPager:(ViewPagerController *)viewPager viewForTabAtIndex:(NSUInteger)index {
-    
+    KMSubMenu *menu = [arrMenu objectAtIndex:index];
     UILabel *label = [UILabel new];
     label.backgroundColor = [UIColor clearColor];
     label.font = [UIFont systemFontOfSize:12.0];
-    label.text = [NSString stringWithFormat:@"Tab #%i", index];
+    label.text = menu.mnTitle;
     label.textAlignment = NSTextAlignmentCenter;
     label.textColor = [UIColor blackColor];
     [label sizeToFit];
@@ -206,10 +212,13 @@
 }
 
 - (UIViewController *)viewPager:(ViewPagerController *)viewPager contentViewControllerForTabAtIndex:(NSUInteger)index {
-    
+     KMSubMenu *menu = [arrMenu objectAtIndex:index];
     KMMainContentTabViewController *cvc = (KMMainContentTabViewController *)[StoryBoardUtilities viewControllerForStoryboardName:@"KMSlideMenustoryboard" class:[KMMainContentTabViewController class]];
-    
-//    cvc.labelString = [NSString stringWithFormat:@"Content View #%i", index];
+    cvc.webUrl = [NSURL URLWithString:menu.mnUrl];
+    NSLog(@"url:%@end",menu.mnUrl);
+//    if (index == 0) {
+//        cvc.isFavorite = true;
+//    }
     
     return cvc;
 }

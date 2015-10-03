@@ -131,14 +131,19 @@
 //     NSLog(@" _subMenu.mnUrl %@", _subMenu.mnUrl );
     webUrl = [NSURL URLWithString:_subMenu.mnUrl];
     htmlData = [NSData dataWithContentsOfURL:webUrl];
+    if (_isFavorite) {
+        [self getMovieDetailFavorite];
+    }else{
+          [self getMovieDetail];
+    }
+  
     
-//    self.movieDetails = [self getMovieDetailFavorite];
-    self.movieDetails = [self getMovieDetail];
 
     
 }
 
-- (KMMovie*)getMovieDetail {
+- (void)getMovieDetail
+{
     KMMovie * movie = [[KMMovie alloc]init];
     
     movie.movieTitle = _subMenu.mnTitle;
@@ -183,6 +188,8 @@
                     
                 }
                 
+                
+                
             }
             
         }
@@ -192,66 +199,146 @@
     }
     
     
-    NSString *tutorialsXpathQueryString2 =  @"//div[@class='box-description']/ul/li";
+    NSString *tutorialsXpathQueryString2 =  @"//div[@class='box-description']";
     
     NSMutableArray *tutorialsNodes2 = [NSMutableArray arrayWithArray: [htmlParser searchWithXPathQuery:tutorialsXpathQueryString2]];
     for (TFHppleElement *element in tutorialsNodes2) {
-        if ([element.attributes[@"class"] isEqualToString:@"tag"]) {
+        for (TFHppleElement *elementChild in element.children) {
+            if ([elementChild.tagName isEqualToString:@"h3"]) {
+                if (elementChild.content != nil) {
+                     movie.movieTitle = [elementChild.content stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]] ;
+                    movie.movieTitle =[movie.movieTitle stringByReplacingOccurrencesOfString:@"\t" withString:@""];
+                }
+               
+            }
+        if ([elementChild.attributes[@"class"] isEqualToString:@"tag"]) {
             int i = 0;
-            for (TFHppleElement *child in element.children)
+            for (TFHppleElement *child in elementChild.children)
             {
                 
                 for (TFHppleElement *child1 in child.children)
                 {
-                    if (i <= 1 || i ==  child.children.count - 1) {
-                        movie.movieGenresString =  [NSString stringWithFormat:@"%@%@",movie.movieGenresString,child1.content];
-                        
-                        
-                    }else{
-                        [movie.movieArrType addObject:child1.content];
-                        movie.movieGenresString =  [NSString stringWithFormat:@"%@ , %@",movie.movieGenresString,child1.content];
-                        
+                    if (child1.content != nil) {
+                        if (i <= 1 || i ==  child.children.count - 1) {
+                            movie.movieGenresString =  [NSString stringWithFormat:@"%@%@",movie.movieGenresString,child1.content];
+                            
+                            
+                        }else{
+                            [movie.movieArrType addObject:child1.content];
+                            movie.movieGenresString =  [NSString stringWithFormat:@"%@ , %@",movie.movieGenresString,child1.content];
+                            
+                        }
                     }
-                    NSLog(@" movie.movieGenresString %@", movie.movieGenresString);
+                    
+                    //                    NSLog(@" movie.movieGenresString %@", movie.movieGenresString);
                     
                     i++;
                     
                     
                 }
             }
-            break;
+          break;
+        }
+            
         }
         //         NSLog(@" element %@", element.attributes );
     }
     
-    NSString *tutorialsXpathQueryString3 =  @"//div[@class='box-description']/h3";
+    NSString *tutorialsXpathQueryString3 =  @"//div[@class='box-description']/p";
     
     NSMutableArray *tutorialsNodes3 = [NSMutableArray arrayWithArray: [htmlParser searchWithXPathQuery:tutorialsXpathQueryString3]];
     for (TFHppleElement *element in tutorialsNodes3) {
-        //        NSLog(@" child %@", element.content );
-        movie.movieDescription = element.content;
+//                NSLog(@" child %@", element.content );
+        if (element.content != nil) {
+            movie.movieDescription = element.content;
+            movie.movieDescription =  [movie.movieDescription stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]] ;
+            movie.movieDescription =[movie.movieDescription stringByReplacingOccurrencesOfString:@"\t" withString:@""];
+            movie.movieDescription =[movie.movieDescription stringByReplacingOccurrencesOfString:@"  " withString:@""];
+        }
+       
     }
     
     NSString *tutorialsXpathQueryString4 =  @"//strong[@class='vote-count _votecount']";
     
     NSMutableArray *tutorialsNodes4 = [NSMutableArray arrayWithArray: [htmlParser searchWithXPathQuery:tutorialsXpathQueryString4]];
     for (TFHppleElement *element in tutorialsNodes4) {
-        //        NSLog(@" movieVoteCount %@", element.content );
+//        NSLog(@" movieVoteCount %@", element.content );
         movie.movieVoteCount = element.content;
     }
     
     NSString *tutorialsXpathQueryString5 =  @"//span[@class='rating-score fw7 _score']";
     
     NSMutableArray *tutorialsNodes5 = [NSMutableArray arrayWithArray: [htmlParser searchWithXPathQuery:tutorialsXpathQueryString5]];
+    
     for (TFHppleElement *element in tutorialsNodes5) {
-        //        NSLog(@" movieVoteAverage %@", element.content );
         movie.movieVoteAverage = element.content;
     }
     
-    return movie;
+    self.movieDetails = movie;
+    
+    // load similar moiview
+    self.similarMoviesDataSource = [[NSMutableArray alloc]init];
+    NSString *tutorialsXpathQueryString6 =  @"//div[@class='subtray flex-des']";
+    
+    NSMutableArray *tutorialsNodes6 = [NSMutableArray arrayWithArray: [htmlParser searchWithXPathQuery:tutorialsXpathQueryString6]];
+   
+    for (TFHppleElement *element in tutorialsNodes6) {
+         KMSubMenu *menu = [[KMSubMenu alloc]init];
+        for (TFHppleElement *child in element.children) {
+              for (TFHppleElement *child1 in child.children) {
+//             NSLog(@" movieVoteCount %@", child1.raw );
+            if ([child1.tagName isEqualToString:@"a"] ){
+                
+                menu.mnUrl = [NSString stringWithFormat:@"%@%@",BASE_URL,child1.attributes[@"href"]];
+                 for (TFHppleElement *child2 in child1.children) {
+//                      NSLog(@" movieVoteCount %@", child2.attributes[@"_src"] );
+                     if (child2.attributes[@"_src"] != nil) {
+                         menu.mnImgUrl =  child2.attributes[@"_src"];
+                     }
+                     
+                 }
+
+                }
+                  if ([child1.tagName isEqualToString:@"div"]) {
+                       for (TFHppleElement *child2 in child1.children) {
+                           if ([child2.tagName isEqualToString:@"h4"])
+                           for (TFHppleElement *child3 in child2.children) {
+                               if (child3.content != nil ) {
+                                    menu.mnTitle =   child3.content;
+//                                     NSLog(@" movieVoteCount %@ line", child3.content );
+                               }
+                             
+
+                           }
+                       }
+                  }
+              }
+         
+        }
+        
+         [self.similarMoviesDataSource addObject:menu];
+    }
+    
+    [self processSimilarMoviesData:self.similarMoviesDataSource];
+    
+    //load comment
+    NSString *tutorialsXpathQueryString7 =  @"//div[@class='comment-list']/div[@class='comment-item']";
+    
+    NSMutableArray *tutorialsNodes7 = [NSMutableArray arrayWithArray: [htmlParser searchWithXPathQuery:tutorialsXpathQueryString7]];
+    
+    for (TFHppleElement *element in tutorialsNodes7) {
+        
+//        NSLog(@"element tag : %@",element.tagName);
+//        NSLog(@"element  : %@",element.content);
+        //        if (<#condition#>) {
+        //            <#statements#>
+        //        }
+    }
 }
 
-- (KMMovie*)getMovieDetailFavorite
+
+
+- (void)getMovieDetailFavorite
 {
     KMMovie * movie = [[KMMovie alloc]init];
     
@@ -352,7 +439,7 @@
     
     NSMutableArray *tutorialsNodes4 = [NSMutableArray arrayWithArray: [htmlParser searchWithXPathQuery:tutorialsXpathQueryString4]];
     for (TFHppleElement *element in tutorialsNodes4) {
-        NSLog(@" movieVoteCount %@", element.content );
+//        NSLog(@" movieVoteCount %@", element.content );
         movie.movieVoteCount = element.content;
     }
     
@@ -413,8 +500,8 @@
     
     for (TFHppleElement *element in tutorialsNodes7) {
         
-        NSLog(@"element tag : %@",element.tagName);
-          NSLog(@"element  : %@",element.content);
+//        NSLog(@"element tag : %@",element.tagName);
+//          NSLog(@"element  : %@",element.content);
 //        if (<#condition#>) {
 //            <#statements#>
 //        }
@@ -477,7 +564,13 @@
 {
     KMSimilarMoviesViewController* viewController = (KMSimilarMoviesViewController*)[StoryBoardUtilities viewControllerForStoryboardName:@"KMSimilarMoviesStoryboard" class:[KMSimilarMoviesViewController class]];
     viewController.moviesDataSource = self.similarMoviesDataSource;
-    [self.navigationController pushViewController:viewController animated:YES];
+    
+    NSMutableArray *vController = [NSMutableArray arrayWithArray:self.navigationController.viewControllers];
+    [vController removeLastObject];
+    [vController addObject:viewController];
+    
+    [self.navigationController setViewControllers:vController animated:YES];
+//    [self.navigationController pushViewController:viewController animated:YES];
 }
 
 - (IBAction)popViewController:(id)sender
@@ -511,6 +604,16 @@
             if(detailsCell == nil)
                 detailsCell = [KMMovieDetailsCell movieDetailsCell];
             
+            
+            if (self.movieDetails.movieUrlVideo == nil || [self.movieDetails.movieUrlVideo  isEqual: @""]){
+                detailsCell.watchTrailerButton.hidden = true;
+                detailsCell.bookmarkButton.hidden = true;
+                detailsCell.lbChonPhim.hidden = false;
+            }else{
+                detailsCell.watchTrailerButton.hidden = false;
+                detailsCell.bookmarkButton.hidden = false;
+                 detailsCell.lbChonPhim.hidden = true;
+            }
             [detailsCell.posterImageView setImageURL:[NSURL URLWithString:self.movieDetails.movieThumbnailBackdropImageUrl]];
             detailsCell.movieTitleLabel.text = self.movieDetails.movieTitle;
             detailsCell.genresLabel.text = self.movieDetails.movieGenresString;
@@ -528,7 +631,7 @@
             if(descriptionCell == nil)
                 descriptionCell = [KMMovieDetailsDescriptionCell movieDetailsDescriptionCell];
             
-            descriptionCell.movieDescriptionLabel.text = self.movieDetails.movieSynopsis;
+            descriptionCell.movieDescriptionLabel.text = self.movieDetails.movieDescription;
             
             cell = descriptionCell;
         }
@@ -640,22 +743,26 @@
     
     if (indexPath.row == 0)
         height = 120;
-//    else if (indexPath.row == 1)
-//        height = 119;
-    else if (indexPath.row == 2 - 1)
+    else if (indexPath.row == 1){
+        height = 119;
+        if ( self.movieDetails.movieDescription == nil || [self.movieDetails.movieDescription  isEqual: @""]) {
+            height = 0;
+        }
+    }
+    else if (indexPath.row == 2 )
     {
         if ([self.similarMoviesDataSource count] == 0)
             height = 0;
         else
-            height = 143;
+            height = 163;
     }
-    else if (indexPath.row == 3 -1)
+    else if (indexPath.row == 3 )
         height = 67;
-    else if (indexPath.row >= 4 -1 && indexPath.row < 6 -1)
+    else if (indexPath.row >= 4  && indexPath.row < 6 )
         height = 100;
-    else if (indexPath.row == 6 -1)
+    else if (indexPath.row == 6 )
         height = 49;
-    else if (indexPath.row == 7 -1)
+    else if (indexPath.row == 7 )
         height = 62;
     return height;
 }
@@ -672,6 +779,8 @@
 {
     KMSimilarMoviesCollectionViewCell* cell = (KMSimilarMoviesCollectionViewCell*)[collectionView dequeueReusableCellWithReuseIdentifier:@"KMSimilarMoviesCollectionViewCell" forIndexPath:indexPath];
     [cell.cellImageView setImageURL:[NSURL URLWithString:[[self.similarMoviesDataSource objectAtIndex:indexPath.row] mnImgUrl]]];
+    cell.lbTitile.text = [[self.similarMoviesDataSource objectAtIndex:indexPath.row] mnTitle];
+    
     return cell;
 }
 
@@ -700,7 +809,7 @@
 
 - (UIViewContentMode)contentModeForImage:(UIImageView *)imageView
 {
-    return UIViewContentModeTop;
+    return UIViewContentModeScaleAspectFit;
 }
 
 - (UIImageView*)detailsPage:(KMDetailsPageView*)detailsPageView imageDataForImageView:(UIImageView*)imageView;

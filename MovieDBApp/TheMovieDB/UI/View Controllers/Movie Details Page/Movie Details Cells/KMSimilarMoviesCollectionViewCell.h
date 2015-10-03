@@ -12,6 +12,7 @@
 @interface KMSimilarMoviesCollectionViewCell : UICollectionViewCell
 
 + (KMSimilarMoviesCollectionViewCell*) similarMoviesCollectionViewCell;
+@property (weak, nonatomic) IBOutlet UILabel *lbTitile;
 
 @property (weak, nonatomic) IBOutlet EGOImageView *cellImageView;
 @property (weak, nonatomic) IBOutlet UIView *cellBackgroundView;

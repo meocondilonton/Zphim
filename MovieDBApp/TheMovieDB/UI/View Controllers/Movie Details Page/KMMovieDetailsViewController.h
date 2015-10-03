@@ -28,7 +28,7 @@
 @property (strong, nonatomic) KMMovie* movieDetails;
 @property (strong, nonatomic) KMSubMenu* subMenu;
 
-
+@property (assign, nonatomic)BOOL isFavorite ;
 
 - (IBAction)popViewController:(id)sender;
 

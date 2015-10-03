@@ -18,6 +18,7 @@
 @end
 
 @interface KMMovieDetailsCell : UITableViewCell
+@property (weak, nonatomic) IBOutlet UILabel *lbChonPhim;
 
 @property (weak, nonatomic) IBOutlet EGOImageView *posterImageView;
 @property (weak, nonatomic) IBOutlet KMGillSansLightLabel *movieTitleLabel;

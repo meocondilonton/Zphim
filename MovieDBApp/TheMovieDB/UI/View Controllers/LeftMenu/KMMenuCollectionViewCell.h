@@ -11,5 +11,6 @@
 @interface KMMenuCollectionViewCell : UICollectionViewCell
 
 @property (weak, nonatomic) IBOutlet UIImageView *bgImg;
+@property (weak, nonatomic) IBOutlet UILabel *lbTitle;
 
 @end

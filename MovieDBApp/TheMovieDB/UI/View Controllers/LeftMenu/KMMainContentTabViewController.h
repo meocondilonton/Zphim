@@ -14,5 +14,6 @@
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (strong, nonatomic) NSArray* moviesDataSource;
 @property (strong, nonatomic) NSURL *webUrl;
+@property (assign,nonatomic)BOOL isFavorite;
 
 @end

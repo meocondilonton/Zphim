@@ -65,6 +65,8 @@
 
 	[[EGOImageLoader sharedImageLoader] removeObserver:self];
 	UIImage* anImage = [[EGOImageLoader sharedImageLoader] imageForURL:aURL shouldLoadWithObserver:self];
+    
+    
 	
 	if(anImage) {
 		self.image = anImage;

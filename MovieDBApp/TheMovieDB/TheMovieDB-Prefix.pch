@@ -13,6 +13,12 @@
 
 #define BASE_URL            @"http://tv.zing.vn/"
 
+#define kPathAnime        @"//div[@class='sub-nav hoat-hinh']"
+#define kPathDrama        @"//div[@class='sub-nav phim-truyen-hinh']"
+#define kPathFunny        @"//div[@class='sub-nav hai-huoc']"
+#define kPathTVShow        @"//div[@class='sub-nav tv-show']"
+
+
 #ifdef __OBJC__
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>

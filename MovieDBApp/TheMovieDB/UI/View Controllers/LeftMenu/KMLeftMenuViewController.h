@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "KMMainMenuViewController.h"
 
 @interface KMLeftMenuViewController : UIViewController <UITableViewDataSource,UITableViewDelegate>
 

@@ -109,6 +109,7 @@
 {
     KMMoviePosterCell* cell = (KMMoviePosterCell*)[collectionView dequeueReusableCellWithReuseIdentifier:@"KMMoviePosterCell" forIndexPath:indexPath];
     [cell.moviePosterImageView sd_setImageWithURL:[NSURL URLWithString:[[self.moviesDataSource objectAtIndex:indexPath.row] mnImgUrl]]];
+    cell.lbTitle.text = [[self.moviesDataSource objectAtIndex:indexPath.row] mnTitle];
     return cell;
 }
 

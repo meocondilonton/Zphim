@@ -20,9 +20,10 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    self.mainVc = [StoryBoardUtilities viewControllerForStoryboardName:@"KMSlideMenustoryboard" class:[KMMainMenuViewController class]];
+    mainVc = [StoryBoardUtilities viewControllerForStoryboardName:@"KMSlideMenustoryboard" class:[KMMainMenuViewController class]];
     self.leftVc = [StoryBoardUtilities viewControllerForStoryboardName:@"KMSlideMenustoryboard" class:[KMLeftMenuViewController class]];
-    UINavigationController* navigationController = [[UINavigationController alloc]initWithRootViewController:self.mainVc];
+    mainVc.keyPath = kPathDrama;
+    UINavigationController* navigationController = [[UINavigationController alloc]initWithRootViewController:mainVc];
     MFSideMenuContainerViewController *container = [MFSideMenuContainerViewController
                                                     containerWithCenterViewController:navigationController
                                                     leftMenuViewController:self.leftVc

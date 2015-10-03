@@ -26,7 +26,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+     [self loadData];
    
 }
 
@@ -40,15 +40,16 @@
 
 - (void)awakeFromNib
 {
-     [self loadData];
+   
     
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
-//    [self setupCollectionViewLayout];
+    [self setupCollectionViewLayout];
 }
 
 #pragma mark - data
@@ -61,10 +62,15 @@
 //    
 //     self.moviesDataSource = [self getListMenuFavorite];
     
-    _webUrl = [NSURL URLWithString:@"http://tv.zing.vn/the-loai/Hanh-Dong-Phieu-Luu/IWZ9Z0FF.html"];
+//    _webUrl = [NSURL URLWithString:@"http://tv.zing.vn/the-loai/Hanh-Dong-Phieu-Luu/IWZ9Z0FF.html"];
+//    _webUrl = [NSURL URLWithString:@"http://tv.zing.vn/the-loai/Phim-Viet-Nam/IWZ9ZI07.html"];
+   
     htmlData = [NSData dataWithContentsOfURL:_webUrl];
-    
+    if (self.isFavorite) {
+         self.moviesDataSource = [self getListMenuFavorite];
+    }else{
     self.moviesDataSource = [self getListMenu];
+    }
     
 }
 
@@ -88,8 +94,8 @@
         for (TFHppleElement *child in element.children) {
             
             if ([[child tagName] isEqualToString:@"a"] ) {
-                menu.mnUrl = child.attributes[@"href"];
-                 NSLog(@"menu mnUrl : %@", menu.mnUrl);
+                menu.mnUrl = [NSString stringWithFormat:@"%@%@",BASE_URL,child.attributes[@"href"]];
+//                 NSLog(@"menu mnUrl : %@", menu.mnUrl);
                 for (TFHppleElement *child1 in child.children) {
                     if (child1.attributes[@"src"] != nil) {
                         menu.mnImgUrl = child1.attributes[@"src"];
@@ -102,9 +108,12 @@
             
             if ([[child tagName] isEqualToString:@"div"] ) {
                 for (TFHppleElement *child1 in child.children) {
-                    //                     NSLog(@"child1 : %@", child1.content);
-                    if ([child1.tagName isEqualToString:@"h4"]) {
-                        menu.mnTitle = child1.content;
+                                         NSLog(@"child1 : %@", child1.content);
+                    if ([child1.tagName isEqualToString:@"h3"]) {
+                        if ( child1.content != nil) {
+                            menu.mnTitle = child1.content;
+                        }
+                        
                     }else if([child1.tagName isEqualToString:@"h5"]){
                         
                         menu.mnDescription = child1.content;
@@ -187,7 +196,6 @@
 }
 
 
-#pragma mark - colectionview view delegeate
 #pragma mark -
 #pragma mark CollectionView Layout
 
@@ -242,7 +250,6 @@
         KMMenuHeaderCollectionViewCell *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"KMMenuHeaderCollectionViewCell" forIndexPath:indexPath];
         
         headerView.lbTitle.text = @"section 1";
-        headerView.lbTitle.textColor = [UIColor whiteColor];
         reusableview = headerView;
     }
     return reusableview;
@@ -259,6 +266,8 @@
     
     KMSubMenu *menu = [self.moviesDataSource objectAtIndex:indexPath.item];
     [cell.bgImg sd_setImageWithURL:[NSURL URLWithString:menu.mnImgUrl]];
+    cell.lbTitle.text = menu.mnTitle;
+    
     return cell;
 }
 
@@ -276,6 +285,7 @@
     KMMovieDetailsViewController* viewController = (KMMovieDetailsViewController*)[StoryBoardUtilities viewControllerForStoryboardName:@"KMMovieDetailsStoryboard" class:[KMMovieDetailsViewController class]];
     [self.navigationController pushViewController:viewController animated:YES];
     viewController.subMenu = menu;
+    viewController.isFavorite = self.isFavorite;
 }
 
 @end

@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -14,11 +15,12 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="118"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="237" translatesAutoresizingMaskIntoConstraints="NO" id="XNm-jb-lYc">
-                        <rect key="frame" x="63" y="12" width="237" height="94"/>
-                        <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="14"/>
-                        <nil key="highlightedColor"/>
-                    </label>
+                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Đang cập nhật thông tin" translatesAutoresizingMaskIntoConstraints="NO" id="VMV-ba-HLk">
+                        <rect key="frame" x="63" y="0.0" width="257" height="118"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                    </textView>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="infos_icon" translatesAutoresizingMaskIntoConstraints="NO" id="BMF-nx-jQY">
                         <rect key="frame" x="18" y="48" width="22" height="22"/>
                         <constraints>
@@ -36,18 +38,18 @@
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="MrA-Yc-zAS" secondAttribute="trailing" id="3Dn-Dt-OYb"/>
-                    <constraint firstAttribute="bottom" secondItem="XNm-jb-lYc" secondAttribute="bottom" constant="12" id="5Tt-f8-x3g"/>
+                    <constraint firstItem="VMV-ba-HLk" firstAttribute="top" secondItem="bwb-Au-zmm" secondAttribute="topMargin" constant="-8" id="4eK-6Y-wlK"/>
                     <constraint firstItem="MrA-Yc-zAS" firstAttribute="leading" secondItem="bwb-Au-zmm" secondAttribute="leading" constant="18" id="8vN-SK-Q0u"/>
-                    <constraint firstAttribute="trailing" secondItem="XNm-jb-lYc" secondAttribute="trailing" constant="20" id="Etr-0d-bs4"/>
+                    <constraint firstItem="MrA-Yc-zAS" firstAttribute="top" secondItem="VMV-ba-HLk" secondAttribute="bottom" constant="-1" id="FSu-Nf-naA"/>
                     <constraint firstItem="BMF-nx-jQY" firstAttribute="leading" secondItem="bwb-Au-zmm" secondAttribute="leading" constant="18" id="GaG-VO-8eH"/>
-                    <constraint firstItem="XNm-jb-lYc" firstAttribute="top" secondItem="bwb-Au-zmm" secondAttribute="top" constant="12" id="Hxu-1E-RIR"/>
-                    <constraint firstItem="XNm-jb-lYc" firstAttribute="leading" secondItem="BMF-nx-jQY" secondAttribute="trailing" constant="23" id="VJg-VP-7u6"/>
                     <constraint firstAttribute="centerY" secondItem="BMF-nx-jQY" secondAttribute="centerY" id="bFj-Yx-drP"/>
+                    <constraint firstItem="VMV-ba-HLk" firstAttribute="leading" secondItem="BMF-nx-jQY" secondAttribute="trailing" constant="23" id="cY2-jA-pev"/>
                     <constraint firstAttribute="bottom" secondItem="MrA-Yc-zAS" secondAttribute="bottom" id="vtc-VK-Xsh"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="VMV-ba-HLk" secondAttribute="trailing" constant="-8" id="xUq-Er-t4T"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
-                <outlet property="movieDescriptionLabel" destination="XNm-jb-lYc" id="95Y-N1-rss"/>
+                <outlet property="movieDescriptionLabel" destination="VMV-ba-HLk" id="nfA-hO-IzC"/>
             </connections>
         </tableViewCell>
     </objects>

@@ -10,10 +10,12 @@
 #import "KMMainMenuViewController.h"
 #import "KMLeftMenuViewController.h"
 
-@interface KMAppDelegate : UIResponder <UIApplicationDelegate>
+@interface KMAppDelegate : UIResponder <UIApplicationDelegate>{
+     KMMainMenuViewController * mainVc;
+}
 
 @property (strong, nonatomic) UIWindow *window;
-@property (strong, nonatomic) KMMainMenuViewController * mainVc;
+ 
 @property (strong, nonatomic) KMLeftMenuViewController * leftVc;
 @property (strong,nonatomic)NSMutableArray *arrMenu;
 @end

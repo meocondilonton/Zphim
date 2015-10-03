@@ -14,4 +14,6 @@
 
 @interface KMMainMenuViewController : ViewPagerController
 
+@property(strong, nonatomic) NSString * keyPath;
+
 @end
